@@ -1,12 +1,12 @@
 import { Controller, Get } from '@nestjs/common';
-import { TagService } from './tag.service';
+import { TagService } from '@app/tag/tag.service';
 
 @Controller('tags')
 export class TagController {
-  constructor(private tagService: TagService) {}
+  constructor(private readonly tagService: TagService) {}
 
   @Get()
-  findAll() {
+  findAll(): string[] {
     return this.tagService.findAll();
   }
 }

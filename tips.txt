@@ -8,3 +8,10 @@ nest g controller [conrollerName] : Execute to create a controller using the CLI
 
 create modules for every feature and isolate everything related to it inside the module.
 
+relative path are bad:
+  - not easy to understand project directory tree
+  - cant copy paste them, the import will fail
+  - cant replace it everywhere at once as pathes may be different
+
+it is recommended to configure absolute path
+
