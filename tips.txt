@@ -1,0 +1,10 @@
+npm i -g @nestjs/cli : Install nest CLI globally.
+nest new project-name : Scaffold a new project
+npm i --save @nestjs/core @nestjs/common rxjs reflect-metadata : Manually create a new project from scratch by installing the core and supporting files with npm (or yarn).
+
+nest g resource [name] : Creating a CRUD controller with the validation built-in, using the CLI's CRUD generator.
+
+nest g controller [conrollerName] : Execute to create a controller using the CLI
+
+create modules for every feature and isolate everything related to it inside the module.
+
