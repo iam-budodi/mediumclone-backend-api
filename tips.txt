@@ -25,6 +25,8 @@ postgres commands:
     - \dc <dbName> => connect to the database
     - \dt => display list of all tables
     - \d <tableName> => descibes how the table looks like
+    - INSERT INTO <tableName>(<columnNames separated by comma>) VALUES('<columnValue>'); => create record
+    - SELECT * FROM <tableName>; => retrieve data from table
 
 npm install pg typeorm and @nestjs/typeorm to configure and bind postgres to nest app
 create ormconfig.ts file on src directory and add config params then export it.
