@@ -72,4 +72,14 @@ migration flow:
      2. when you want to run your project on new machine, you clone it, install all dependencies then you do
         migrations(i.e run command: npm run db:migrate) only if the db is empty, if not run command: npm run db:drop
         followed by command: npm run db:migrate.
-  ->
+
+Data Transfer Object (DTO)
+  -> post request has a body
+  -> this body is named DTO inside nestjs(check nestjs docs on controller section)
+  -> it is the schema of the payload that we provide for our backend
+  -> it's important for validation inside nestjs
+  -> it is a class not an interface
+
+interface vs class in typescript
+  -> interface is just a data type which exist only in typescript
+  -> class exist on both js and ts
