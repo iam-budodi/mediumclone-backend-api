@@ -31,3 +31,45 @@ postgres commands:
 npm install pg typeorm and @nestjs/typeorm to configure and bind postgres to nest app
 create ormconfig.ts file on src directory and add config params then export it.
 
+migrations:
+  -> you have a database which you just created and so it is empty.
+  -> you then want to add something i.e tables.
+  -> this is done through migrations i.e we are creating new migration and inside we are creating a table.
+  -> this means we are saving somewhere our changes in a database
+  -> every single time when we want to update something in our db, we are migrating our schema i.e we have
+     the old state and we are getting the new one through migration, this is somewhat similar to git where
+     you can switch to older version.
+  -> with migration you always know in which state you were and what state will come
+  -> synchronize: true from typeorm is unsafe and not recommended for production as we dont want to remove data there
+  -> we must fully control how we create tables
+  -> it is recommended to use migrations for real world project.
+
+Project flow:
+  -> normally we want to start our application or at least setup our project
+  -> then create db completely from CLI
+  -> we migrate all our migrations, then we have a schema of the tables
+
+we may want to use typeorm outside the node module, to avoid Executing every command in node module's path.
+for this we create a new script inside the package.json file, only to use them inside other commands.
+
+change synchronize to false to revoke control from typeorm
+
+typeorm script:
+  -> "typeorm": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js --config src/ormconfig.ts",
+
+migrations scripts:
+  -> "db:drop": "npm run typeorm schema:drop" -> npm run db:drop => drops all tables
+  -> "db:create": "npm run typeorm migration:generate -- -n" -> npm run db:create <migrationName> => creates new migration
+  -> "db:migrate": "npm run typeorm migration:run" -> Execute our migration in the correct order
+
+now with this implementation, when you want to create a new migration, typeorm checks in what state our table and
+database is and what entities we have, if we have something different, then this change will go in this migration
+
+migration flow:
+  -> first, we are committing all migrationsas they are part of the project, i.e everytime you are changing db
+     you are creating new migration.
+     1. this is a must
+     2. when you want to run your project on new machine, you clone it, install all dependencies then you do
+        migrations(i.e run command: npm run db:migrate) only if the db is empty, if not run command: npm run db:drop
+        followed by command: npm run db:migrate.
+  ->
