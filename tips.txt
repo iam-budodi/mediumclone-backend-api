@@ -79,7 +79,24 @@ Data Transfer Object (DTO)
   -> it is the schema of the payload that we provide for our backend
   -> it's important for validation inside nestjs
   -> it is a class not an interface
+  -> DTOs are used only for payload(i.e request body) otherwise use an interface(for returned object/data)
 
 interface vs class in typescript
   -> interface is just a data type which exist only in typescript
   -> class exist on both js and ts
+
+
+authentication with jwt
+  -> backend generate some token
+  -> the token is then saved in the frontend eg. in the cookies
+  -> the cookie is then attached to every request
+  -> our backend will then know what request is coming and how to consume/respond to the request
+  -> the backend can then provide correct or restrict/forbid response if the jwt token is incorrect
+  -> use jsonwebtoken to genarate jwt instead of passport.js which is a bit complex
+
+
+typescript any datatype is bad, it is recommended to create an interface to replace it.
+
+validating requests
+  -> use nestjs pipes (check the docs)
+  -> we may either want to validate or transform request body from requests
