@@ -100,3 +100,6 @@ typescript any datatype is bad, it is recommended to create an interface to repl
 validating requests
   -> use nestjs pipes (check the docs)
   -> we may either want to validate or transform request body from requests
+  -> for validation use validationPipe
+  -> install additional packages ie class-validator and class-transformer
+  -> use validation decorators inside DTO
