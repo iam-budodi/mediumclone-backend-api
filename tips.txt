@@ -101,5 +101,18 @@ validating requests
   -> use nestjs pipes (check the docs)
   -> we may either want to validate or transform request body from requests
   -> for validation use validationPipe
+  -> Pipes do something with parameters before hitting the actions in controllers
   -> install additional packages ie class-validator and class-transformer
   -> use validation decorators inside DTO
+
+middlewares
+  -> useful when working with token
+  -> frontend will get token and store it in the cookie/local storage and attach it to every request
+  -> backend will know what request belong to what user
+  -> the token is likely inserted in the request header
+  -> almost same as Pipes in way that they do something with request itself before hitting the actions in controllers
+  -> are not working with parameters rather request itself
+  -> prefered for authentication
+  -> the middleware will take request header before request hits controller
+  -> from the authorization token in request header, take the current user and attach to the request
+  -> allows to get user directly from the request without bothering with token

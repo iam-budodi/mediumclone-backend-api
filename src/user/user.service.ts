@@ -5,7 +5,7 @@ import { Repository } from 'typeorm';
 import { compare } from 'bcrypt';
 import { sign } from 'jsonwebtoken';
 import { UserEntity } from '@app/user/user.entity';
-import { JWT_TOKEN } from '@app/config';
+import { JWT_SECRET } from '@app/config';
 import { UserResponseInterface } from '@app/user/types/userResponse.interface';
 import { LoginUserDto } from '@app/user/dto/loginUser.dto';
 
@@ -36,25 +36,37 @@ export class UserService {
     return this.userRepository.save(newUser);
   }
 
-  async userLogin(loginUserDto: LoginUserDto): Promise<UserEntity> {
-    const userByEmail = await this.userRepository.findOne({
-      email: loginUserDto.email,
-    });
+  async findById(id: number): Promise<UserEntity> {
+    return await this.userRepository.findOne(id);
+  }
 
-    if (!userByEmail) {
+  async userLogin(loginUserDto: LoginUserDto): Promise<UserEntity> {
+    const user = await this.userRepository.findOne(
+      {
+        email: loginUserDto.email,
+      },
+      { select: ['id', 'username', 'email', 'bio', 'image', 'password'] },
+    );
+
+    if (!user) {
       throw new HttpException(
-        'Incorrect email, please try again!',
+        'Invalid email, please try again!',
         HttpStatus.UNPROCESSABLE_ENTITY,
       );
     }
 
-    const match = await compare(loginUserDto.password, userByEmail.password);
-    if (match) return userByEmail;
-    else
+    const isPasswordCorrect = await compare(
+      loginUserDto.password,
+      user.password,
+    );
+    if (!isPasswordCorrect) {
       throw new HttpException(
         'Incorrect password, please try again!',
         HttpStatus.UNAUTHORIZED,
       );
+    }
+    delete user.password;
+    return user;
   }
 
   generateJWT(user: UserEntity): string {
@@ -64,7 +76,7 @@ export class UserService {
         username: user.username,
         email: user.email,
       },
-      JWT_TOKEN,
+      JWT_SECRET,
     );
   }
 

@@ -1,1 +1,1 @@
-export const JWT_TOKEN = 'xIJ4JKRB4DqQ66PtDkQVPkK';
+export const JWT_SECRET = 'xIJ4JKRB4DqQ66PtDkQVPkK';
