@@ -49,7 +49,7 @@ export class UserController {
   @UsePipes(new ValidationPipe())
   @UseGuards(AuthGuard)
   async updateUser(
-    @User() currentUserId: number,
+    @User('id') currentUserId: number,
     @Body('user') updateUserDto: UpdateUserDto,
   ): Promise<UserResponseInterface> {
     const user = await this.userService.updateUser(

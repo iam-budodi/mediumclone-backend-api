@@ -8,7 +8,7 @@ import { UserEntity } from '@app/user/user.entity';
 import { JWT_SECRET } from '@app/config';
 import { UserResponseInterface } from '@app/user/types/userResponse.interface';
 import { LoginUserDto } from '@app/user/dto/loginUser.dto';
-import { UpdateUserDto } from './dto/updateUser.dto';
+import { UpdateUserDto } from '@app/user/dto/updateUser.dto';
 
 @Injectable()
 export class UserService {
