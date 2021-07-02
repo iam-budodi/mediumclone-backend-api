@@ -117,3 +117,6 @@ middlewares
   -> the middleware will take request header before request hits controller
   -> from the authorization token in request header, take the current user and attach to the request
   -> allows to get user directly from the request without bothering with token
+
+for slug
+  -> use slugify package 
