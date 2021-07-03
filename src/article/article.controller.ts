@@ -1,6 +1,9 @@
 import {
   Body,
   Controller,
+  Delete,
+  Get,
+  Param,
   Post,
   UseGuards,
   UsePipes,
@@ -12,6 +15,7 @@ import { AuthGuard } from '@app/user/guard/auth.guard';
 import { User } from '@app/user/decorators/user.decorator';
 import { UserEntity } from '@app/user/user.entity';
 import { ArticleResponseInterface } from './types/article-response.interface';
+import { DeleteResult } from 'typeorm';
 
 @Controller('articles')
 export class ArticleController {
@@ -29,5 +33,26 @@ export class ArticleController {
       createArticleDto,
     );
     return this.articleService.buildArticleResponse(article);
+  }
+
+  @Get(':slug')
+  async getArticle(
+    @Param('slug') slug: string,
+  ): Promise<ArticleResponseInterface> {
+    const article = await this.articleService.getArticle(slug);
+    return this.articleService.buildArticleResponse(article);
+  }
+
+  @Delete(':slug')
+  @UseGuards(AuthGuard)
+  async deleteArticle(
+    @User('id') currentUserId: number,
+    @Param('slug') slug: string,
+  ): Promise<DeleteResult> {
+    /* const article = */ return await this.articleService.deleteArticle(
+      currentUserId,
+      slug,
+    );
+    // return this.articleService.buildArticleResponse(article);
   }
 }
