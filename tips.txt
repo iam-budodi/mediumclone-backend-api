@@ -22,7 +22,7 @@ postgres commands:
     - create database <dbName>; => creates dbs
     - create user <userName> with encrypted password '<password>'; => create roles
     - grant all privileges on database <dbName> to <userName>; => allow user to manage db
-    - \dc <dbName> => connect to the database
+    - \c <dbName> => connect to the database
     - \dt => display list of all tables
     - \d <tableName> => descibes how the table looks like
     -> \x => enables pretty print
@@ -119,4 +119,16 @@ middlewares
   -> allows to get user directly from the request without bothering with token
 
 for slug
-  -> use slugify package 
+  -> use slugify package
+
+typeorm
+  -> for complex query use query builder especially when working with queries and parameters
+  -> left join and select to get data and their relationship
+  -> offer getCount, limits and offsets out of the box
+  -> limit indicate number of items per page and offset shows from what item to start
+  -> the db option LIKE means finding substring inside string
+  -> % means not looking for strict occurence, just a part of it
+
+liking and dislike
+  -> a many to many relationship
+  -> many user can like same article and vice versa

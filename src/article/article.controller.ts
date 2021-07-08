@@ -18,10 +18,20 @@ import { ArticleResponseInterface } from '@app/article/types/article-response.in
 import { DeleteResult } from 'typeorm';
 import { Put } from '@nestjs/common';
 import { UpdateArticleDto } from '@app/article/dto/updateArticle.dto';
+import { Query } from '@nestjs/common';
+import { ArticlesResponseInterface } from '@app/article/types/articles-response.interface';
 
 @Controller('articles')
 export class ArticleController {
   constructor(private readonly articleService: ArticleService) {}
+
+  @Get()
+  async findAll(
+    @User('id') userId: number,
+    @Query() query: any,
+  ): Promise<ArticlesResponseInterface> {
+    return await this.articleService.findAll(userId, query);
+  }
 
   @Post()
   @UsePipes(new ValidationPipe())
@@ -65,6 +75,32 @@ export class ArticleController {
       currentUserId,
       slug,
       updateArticleDto,
+    );
+    return this.articleService.buildArticleResponse(article);
+  }
+
+  @Post(':slug/favorite')
+  @UseGuards(AuthGuard)
+  async addArticleToFavorites(
+    @User('id') currentUserId: number,
+    @Param('slug') slug: string,
+  ): Promise<ArticleResponseInterface> {
+    const article = await this.articleService.addArticleToFavorites(
+      currentUserId,
+      slug,
+    );
+    return this.articleService.buildArticleResponse(article);
+  }
+
+  @Delete(':slug/favorite')
+  @UseGuards(AuthGuard)
+  async deleteArticleFromFavorites(
+    @User('id') currentUserId: number,
+    @Param('slug') slug: string,
+  ): Promise<ArticleResponseInterface> {
+    const article = await this.articleService.deleteArticleFromFavorites(
+      currentUserId,
+      slug,
     );
     return this.articleService.buildArticleResponse(article);
   }
