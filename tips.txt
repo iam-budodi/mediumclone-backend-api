@@ -132,3 +132,9 @@ typeorm
 liking and dislike
   -> a many to many relationship
   -> many user can like same article and vice versa
+
+seeding data in database:
+  -> you have some predefined data and you throw them in database
+  -> nestjs lack this functionality
+  -> easiest way to do it is to create separate migration for seeding data.
+  -> create additional config to seed data
