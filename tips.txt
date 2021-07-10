@@ -138,3 +138,27 @@ seeding data in database:
   -> nestjs lack this functionality
   -> easiest way to do it is to create separate migration for seeding data.
   -> create additional config to seed data
+
+Working with Profile
+  -> dont create additional user data i.e additional table
+  -> work with the existing user data
+  -> authentication is optional
+
+
+following and unfollowing user
+  -> authentication is required
+  -> not best to store this information inside user table/entity, lots of users follows and
+     unfollows different users
+  -> its important to go about it with a table where we have relations without using either
+     many-to-many or many-to-one.
+  -> for this create a new table/entity
+  -> it is a table for just relations
+  -> you are going to maintain the relations by yourself then create migration
+  -> everytime we are following a user, we push new record to the same and delete when unfollowing.
+
+current user's feed
+  -> must be logged in
+  -> by default the feed will be empty
+  -> only when we follow other user who has some posts created, we shall see them in our feed
+  -> it same as your twitter or facebook Profile where you get content of people you are following
+  -> 

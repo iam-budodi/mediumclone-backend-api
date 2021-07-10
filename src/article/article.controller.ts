@@ -16,7 +16,7 @@ import { User } from '@app/user/decorators/user.decorator';
 import { UserEntity } from '@app/user/user.entity';
 import { ArticleResponseInterface } from '@app/article/types/article-response.interface';
 import { DeleteResult } from 'typeorm';
-import { Put } from '@nestjs/common';
+import { Put, UseGuards } from '@nestjs/common';
 import { UpdateArticleDto } from '@app/article/dto/updateArticle.dto';
 import { Query } from '@nestjs/common';
 import { ArticlesResponseInterface } from '@app/article/types/articles-response.interface';
@@ -31,6 +31,15 @@ export class ArticleController {
     @Query() query: any,
   ): Promise<ArticlesResponseInterface> {
     return await this.articleService.findAll(userId, query);
+  }
+
+  @Get('feed')
+  @UseGuards(AuthGuard)
+  async getUserFeed(
+    @User('id') userId: number,
+    @Query() query: any,
+  ): Promise<ArticlesResponseInterface> {
+    return await this.articleService.getUserFeed(userId, query);
   }
 
   @Post()
